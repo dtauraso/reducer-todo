@@ -10,10 +10,14 @@ class Todo extends React.Component {
     render() {
         console.log("todo", this.props, this.props.completed)
         return (
-            <div className={`item${      this.props.completed ? 'Completed': ''      }`}
-                onClick={() => (this.props.updateTodo(this.props.i))}>
+            // <div className={`item${      this.props.completed ? 'Completed': ''      }`}
+            //     onClick={() => (this.props.updateTodo(this.props.i))}>
+            //     <p>{this.props.name}</p>
+            // </div>
+            <div>
                 <p>{this.props.name}</p>
             </div>
+
         )
     }
 }

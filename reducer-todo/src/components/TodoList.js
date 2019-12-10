@@ -2,26 +2,28 @@
 // feel free to change this component.js into TodoList.js
 import React, { useState, useReducer } from "react";
 
-import { TodoReducer, initialState } from '../reducers/TodoReducer';
+import { reducer, initialState } from '../reducers/TodoReducer';
 
+import Todo from "./Todo"
 // import Todo from "./Todo"
 
 const TodoList = () => {
 
-    const [todos, dispatch] = useReducer(TodoReducer, initialState)
-    
-    console.log("list to display")
+    const [todos, dispatch] = useReducer(reducer, initialState)
+    console.log(todos)
+    console.log("list to display", todos)
     return(
 
         <div>
-            {/* {this.props.todoList.map((todo, i)=> (
+            {todos.map((todo, i)=> (
                 <Todo   key={todo.id}
-                        name={todo.name}
-                        completed={todo.completed}
-                        updateTodo={this.props.updateTodo}
-                        i={i} />
+                        name={todo.item}
+                        // completed={todo.completed}
+                        // updateTodo={this.props.updateTodo}
+                        // i={i}
+                        />
 
-            ))} */}
+            ))}
         </div>
     )
     
