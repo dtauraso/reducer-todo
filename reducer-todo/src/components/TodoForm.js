@@ -1,57 +1,108 @@
-import React from "react";
+import React, { useState, useReducer } from "react";
 
-class TodoForm extends React.Component {
+import { reducer, initialState } from '../reducers/TodoReducer';
+// import TodoList from '../components/TodoList';
+import Todo from "./Todo"
 
-    // doesn't need to take props here
-    constructor() {
-        super()
-        this.state = {
-            newTodo: ""
-        };
+const TodoForm = () => {
+   
+    const [todos, dispatch] = useReducer(reducer, initialState)
+
+    const [newTodo, setNewTodo] = useState('')
+
+    // need this to happen somewhere else so react updates
+    const updateTodo = (ith, updatingTodo) => {
+        console.log("updating todo", ith)
+        let x = todos.map((todo, i) => {
+            console.log(i, ith)
+
+            if(i === ith) {
+                console.log("updated todo", {...updatingTodo, completed: true})
+                return {...updatingTodo, completed: true}
+            } else {
+                return todo
+            }
+        })
+        // make a dispatch b
+        dispatch({
+            type: 'SET_COMPLETED',
+            payload: x
+        })
+        console.log(x)
     }
 
-    handleFormChanges = changeEvent => {
+    const handleTitleChanges = changeEvent => {
         // update state with each keystroke
         // console.log(changeEvent.target.value)
-        this.setState({newTodo: changeEvent.target.value})
+        setNewTodo(changeEvent.target.value)
+        // this.setState({newTodo: changeEvent.target.value})
 
     }
 
     // class property to submit form
-    handleFormSubmit = submitEvent => {
+    const handleFormSubmit = submitEvent => {
         submitEvent.preventDefault();
         console.log("submitting")
-        console.log(this.state.newTodo)
+        console.log(newTodo)
         // already filled from handleFormChanges
-        this.props.addTodo(this.state.newTodo)
-        
+        console.log("got here")
+        console.log(newTodo, todos)
+        // this.props.addTodo(this.state.newTodo)
+        dispatch({
+            type: 'ADD_TODO',
+            payload: newTodo
+        })
+        // console.log(todos)
         // reset data form prepopulates with
-        this.setState({
-            newTodo: ""
+        setNewTodo('')
+
+        // this.setState({
+        //     newTodo: ""
+        // })
+
+    }
+
+    const clearCompleted = () => {
+
+        dispatch({
+            type: 'CLEAR_COMPLETED',
+            payload: todos
         })
 
-    }
+        // this.setState({todos: [...this.state.todos.filter(todo => todo.completed === false)]    })
+    
+      }
+    
+    return (
+        <div>
+            {todos.map((todo, i)=> (
+                <Todo   key={todo.id}
+                        todo={todo}
+                        updateTodo={updateTodo}
+                        // completed={todo.completed}
+                        // updateTodo={this.props.updateTodo}
+                        i={i}
+                        />
 
-    render() {
+            ))}
+
+            <form onSubmit={handleFormSubmit}>
+                <input
+                    value = {newTodo}
+                    onChange={handleTitleChanges}
+                    type="text"
+                    name="todo"
+                ></input>
+                <button>Add</button>
+                <button onClick={clearCompleted}>Clear Completed</button>
+
+            </form>
+        </div>
         
-        return (
-            <div>
-                <form onSubmit={this.handleFormSubmit}>
-                    <input
-                        value = {this.state.newTodo}
-                        onChange={this.handleFormChanges}
-                        type="text"
-                        name="todo"
-                    ></input>
-                    <button>Add</button>
-                    <button onClick={this.props.clearCompleted}>Clear Completed</button>
+        
 
-                </form>
-            </div>
-            
+    )
 
-        )
-    }
 }
 
 export default TodoForm;

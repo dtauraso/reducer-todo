@@ -19,8 +19,26 @@ export const initialState = [
 
 
 export const reducer = (state, action) => {
+    console.log("in reducer")
     console.log(state, action);
     switch (action.type) {
+        case 'ADD_TODO' :
+            console.log(state)
+            return [
+                ...state,
+
+                {   item: action.payload,
+                    completed: false,
+                    id: new Date()
+                }
+            ]
+        case 'SET_COMPLETED' :
+            // the completed todo has already been set so return the payload
+            // as a replacement for the state
+            return action.payload
+        case 'CLEAR_COMPLETED' :
+            return action.payload.filter(todo => todo.completed === false)
+
     //   case 'UPDATE_TITLE':
     //     return {
     //       ...state,

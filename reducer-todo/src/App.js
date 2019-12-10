@@ -1,11 +1,14 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import TodoList from './components/TodoList';
+import './components/Todo.css'
+import TodoForm from './components/TodoForm'
 function App() {
+
+
   return (
     <div className="App">
-      <TodoList />
+      <TodoForm />
     </div>
   );
 }

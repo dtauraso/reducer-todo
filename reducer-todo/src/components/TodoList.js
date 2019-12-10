@@ -8,8 +8,8 @@ import Todo from "./Todo"
 // import Todo from "./Todo"
 
 const TodoList = () => {
-
-    const [todos, dispatch] = useReducer(reducer, initialState)
+    // no way to get data from the reducer used in the form
+    // const [todos, dispatch] = useReducer(reducer, initialState)
     console.log(todos)
     console.log("list to display", todos)
     return(
