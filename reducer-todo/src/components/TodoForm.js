@@ -10,25 +10,16 @@ const TodoForm = () => {
 
     const [newTodo, setNewTodo] = useState('')
 
-    // need this to happen somewhere else so react updates
-    const updateTodo = (ith, updatingTodo) => {
-        console.log("updating todo", ith)
-        let x = todos.map((todo, i) => {
-            console.log(i, ith)
 
-            if(i === ith) {
-                console.log("updated todo", {...updatingTodo, completed: true})
-                return {...updatingTodo, completed: true}
-            } else {
-                return todo
-            }
-        })
-        // make a dispatch b
+    const updateTodo = (ith, updatingTodo) => {
+        // console.log("updating todo", ith)
+       
+        // make a dispatch
         dispatch({
             type: 'SET_COMPLETED',
-            payload: x
+            payload: ith
         })
-        console.log(x)
+        // console.log(x)
     }
 
     const handleTitleChanges = changeEvent => {

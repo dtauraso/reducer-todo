@@ -6,9 +6,9 @@ class Todo extends React.Component {
         super()
         this.state = {}
     }
-
+    // we only have access to a single todo so no reducers can be used here
     render() {
-        console.log("todo", this.props.todo, this.props.todo.completed)
+        // console.log("todo", this.props.todo, this.props.todo.completed)
         return (
             <div className={`item${      this.props.todo.completed ? 'Completed': ''      }`}
                 onClick={() => (this.props.updateTodo(this.props.i, this.props.todo))}>
